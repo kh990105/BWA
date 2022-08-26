@@ -1,14 +1,14 @@
 import React from 'react'
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import WeatherIcon from 'react-native-vector-icons/Feather'
-const WeatherPageHeader = () => {
+const WeatherPageHeader = ({navigation}) => {
   return (
     <View>
       <ImageBackground source={require('../assets/images/haeun.png')} style={styles.haeundaeImg} imageStyle={{opacity:0.75}}>
         <View style={styles.headerIconBox}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.push('FirstPage')}>
               <Icon name="chevron-small-left" size={45} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity>
