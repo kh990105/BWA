@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 
-import FirstPage from './pages/FirstPage';
+import InitialPage from './pages/InitialPage'
 import WeatherPage from './pages/WeatherPage';
 
 import axios from 'axios';
@@ -22,13 +22,14 @@ export default function App() {
       }
       a();
     }, []);
+    
   return (
     <SafeAreaProvider>
       <NavigationContainer style={styles.container}>
-            <Stack.Navigator initialRouteName="FirstPage">
-              <Stack.Screen name="FirstPage" component={FirstPage} options={{headerShown: false }}/>
-              <Stack.Screen name="WeatherPage" component={WeatherPage} options={{headerShown: false }}/>
-            </Stack.Navigator>
+          <Stack.Navigator initialRouteName="InitialPage">
+            <Stack.Screen name="InitialPage" component={InitialPage} options={{headerShown: false }}/>
+            <Stack.Screen name="WeatherPage" component={WeatherPage} options={{headerShown: false }}/>
+          </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );

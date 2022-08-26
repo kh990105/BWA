@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
+import LikeIcon from 'react-native-vector-icons/AntDesign'
 
 const TwoMiddleBox = () => {
 
   const dt = new Date();
-  const CurrentTime = (dt.getHours()-3)+":"+dt.getMinutes()+":"+dt.getSeconds()
+  const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
 
   return (
     <>
@@ -69,11 +70,11 @@ const TwoMiddleBox = () => {
             <View style={styles.bottomRowContainer}>
                 <View style={styles.bottomRowBox}>
                         <Text style={styles.bottomRowLeftText}>미세먼지 :</Text>
-                        <Text style={styles.rowRightText}>18(좋음)</Text>
+                        <Text style={styles.rowRightText}>18 (좋음)</Text>
                 </View>
                 <View style={styles.bottomRowBox}>
                         <Text style={styles.bottomRowLeftText}>초미세먼지 :</Text>
-                        <Text style={styles.rowRightText}>12(좋음)</Text>
+                        <Text style={styles.rowRightText}>12 (좋음)</Text>
                 </View>
             </View>
             <View style={styles.bottomRowContainer}>
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     BottomBox:{
-         height: 200,
+         height: 250,
          margin: 20,
          borderRadius: 10, 
          borderColor: "#6383A6",
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     bottomRowContainer:{
         width: 330,
         //backgroundColor:'blue',
-        marginTop: 15,
+        marginTop: 25,
         flexDirection: 'row',
         justifyContent:'space-evenly'
     },

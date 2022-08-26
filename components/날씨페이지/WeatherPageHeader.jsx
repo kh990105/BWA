@@ -8,7 +8,7 @@ const WeatherPageHeader = ({navigation}) => {
     <View>
       <ImageBackground source={require('../assets/images/haeun.png')} style={styles.haeundaeImg} imageStyle={{opacity:0.75}}>
         <View style={styles.headerIconBox}>
-            <TouchableOpacity onPress={()=>navigation.push('FirstPage')}>
+            <TouchableOpacity onPress={()=>navigation.push('InitialPage')}>
               <Icon name="chevron-small-left" size={45} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity>
