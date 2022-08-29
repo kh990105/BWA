@@ -36,27 +36,27 @@ const TodayTemperature = () => {
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>
             <View style={styles.todayTempBox}>
-                <Text style={styles.clock}>16:00</Text>
+                <Text style={styles.clock}>17:00</Text>
                 <WeatherIcon name="cloud-rain" size={35} color="#fff" />
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>
             <View style={styles.todayTempBox}>
-                <Text style={styles.clock}>16:00</Text>
+                <Text style={styles.clock}>18:00</Text>
                 <WeatherIcon name="cloud-rain" size={35} color="#fff" />
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>
             <View style={styles.todayTempBox}>
-                <Text style={styles.clock}>16:00</Text>
+                <Text style={styles.clock}>19:00</Text>
                 <WeatherIcon name="cloud-rain" size={35} color="#fff" />
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>
             <View style={styles.todayTempBox}>
-                <Text style={styles.clock}>16:00</Text>
+                <Text style={styles.clock}>20:00</Text>
                 <WeatherIcon name="cloud-rain" size={35} color="#fff" />
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>
             <View style={styles.todayTempBox}>
-                <Text style={styles.clock}>16:00</Text>
+                <Text style={styles.clock}>21:00</Text>
                 <WeatherIcon name="cloud-rain" size={35} color="#fff" />
                 <Text style={styles.smallTemp}>25˚</Text>
             </View>

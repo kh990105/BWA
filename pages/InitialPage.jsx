@@ -1,17 +1,11 @@
 import React from 'react'
 import { View, ScrollView, Text, TouchableOpacity, StatusBar, StyleSheet, TextInput, ImageBackground } from 'react-native'
-import  Icon  from 'react-native-vector-icons/Entypo'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const InitialPage = ({navigation}) => {
   return (
     <ScrollView style={styles.bigContainer}>
         <StatusBar />
-        <View style={styles.menuContainer}>
-            <TouchableOpacity>
-                <Icon name='menu' size={35} color="#94A3B2" />
-            </TouchableOpacity>
-        </View>
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <View style={styles.logoBox}>
@@ -57,13 +51,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginBottom: 10
     },
-    menuContainer:{
-        marginTop:20,
-        marginLeft:30
-    },
     container:{
         marginLeft:50,
         marginRight:50,
+        marginTop:50
     },
     logoContainer:{
         height: 150,

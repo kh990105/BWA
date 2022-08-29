@@ -1,12 +1,39 @@
-import React from 'react'
+import React,{ useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
-import LikeIcon from 'react-native-vector-icons/AntDesign'
+import axios from 'axios';
 
 const TwoMiddleBox = () => {
 
   const dt = new Date();
   const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
+  const year = dt.getFullYear();
+  const month = ('0' + (dt.getMonth() + 1)).slice(-2);
+  const day = ('0' + dt.getDate()).slice(-2);
+  const dateString = year + month + day;
+
+
+  const [sunset, setSunset] = useState([])
+//   const [info, setInfo] = useState([]);
+
+//   console.log('info: ', info);
+
+  const serviceKey = 'Y4VLrNy6hcMz2TnhyK3%2BtCKiWrFOwWhhxg1R%2FgBtd9B1ty%2Fe%2FQz2z89s2e4IYd1p8hfkGw3lViB%2FGddDujE2vA%3D%3D'
+
+    useEffect(()=>{
+        const a = async ()=>{
+            const sunset = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getSunInfoBeach?serviceKey=${serviceKey}&numOfRows=1&pageNo=10&dataType=JSON&Base_date=${dateString}&beach_num=304`);
+            // return sunset.data.response.body.items.item[0];
+            console.log(sunset);
+          }
+
+          a().then((e)=>setSunset(e));
+
+        }, []);
+
+
+    
+   
 
   return (
     <>
@@ -48,7 +75,7 @@ const TwoMiddleBox = () => {
                     <Text style={styles.emoticonText}> 놀러가기 딱 좋아요~</Text>
                 </View>
                 <View>
-                    <Text style={styles.currentTimeText}>{ CurrentTime } 업데이트</Text>
+                    <Text style={styles.currentTimeText}>{CurrentTime} 업데이트</Text>
                 </View>
             </View>
     </View>
@@ -57,46 +84,66 @@ const TwoMiddleBox = () => {
             <View style={styles.titleBox}>
                 <Text style={styles.titleBoxText}>기타 날씨 정보</Text>
             </View>
-            <View style={styles.bottomRowContainer}>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>수온 :</Text>
-                        <Text style={styles.rowRightText}>23.9˚</Text>
+            <View style={styles.BRowContainer}>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>수온</Text>
                 </View>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>파고 :</Text>
-                        <Text style={styles.rowRightText}>0.2m</Text>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>23.9˚</Text>
                 </View>
-            </View>
-            <View style={styles.bottomRowContainer}>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>미세먼지 :</Text>
-                        <Text style={styles.rowRightText}>18 (좋음)</Text>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>파고</Text>
                 </View>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>초미세먼지 :</Text>
-                        <Text style={styles.rowRightText}>12 (좋음)</Text>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>0.2m</Text>
                 </View>
             </View>
-            <View style={styles.bottomRowContainer}>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>일출 :</Text>
-                        <Text style={styles.rowRightText}>05:49</Text>
+            <View style={styles.BRowContainer}>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>미세먼지</Text>
                 </View>
-                <View style={styles.bottomRowBox}>
-                        <Text style={styles.bottomRowLeftText}>일몰 :</Text>
-                        <Text style={styles.rowRightText}>19:03</Text>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>18 (좋음)</Text>
                 </View>
-            </View>
-            <View style={styles.bottomRowContainer}>
-                <View style={{flexDirection:'row',}}>
-                        <Text style={styles.bottomRowLeftText}>조석정보 :</Text>
-                        <Text style={styles.rowRightText}>00:04 (썰)</Text>
-                        <Text style={styles.rowRightText}>06:15 (밀)</Text>
-                        <Text style={styles.rowRightText}>12:06 (썰)</Text>
-                        <Text style={styles.rowRightText}>18:35 (밀)</Text>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>초미세먼지</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>12 (좋음)</Text>
                 </View>
             </View>
-
+            <View style={styles.BRowContainer}>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>일출</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>{sunset.sunrise}</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>일몰</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>{sunset.sunset}</Text>
+                </View>
+            </View>
+            <View style={styles.BRowContainer}>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowLeftText}>조석정보</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>19:03</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>19:03</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>19:03</Text>
+                </View>
+                <View style={styles.BRowBox}>
+                    <Text style={styles.rowRightText}>19:03</Text>
+                </View>
+            </View>
+            <Text style={styles.tideInfoText}>※ 조석정보는 썰물 밀물 썰물 밀물 순으로 제공됩니다.</Text>
         </View>
         {/* <View style={styles.moreInfoBox}>
             <TouchableOpacity>
@@ -168,7 +215,7 @@ const styles = StyleSheet.create({
     currentTimeText:{
         color: "#6383A6",
         fontSize: 12,
-        marginLeft: 70,
+        marginLeft: 66,
         marginTop: 10
     },
     BottomContainer:{
@@ -183,22 +230,25 @@ const styles = StyleSheet.create({
          alignItems:'center',
          paddingTop: 12
     },
-    bottomRowContainer:{
-        width: 330,
-        //backgroundColor:'blue',
-        marginTop: 25,
-        flexDirection: 'row',
-        justifyContent:'space-evenly'
-    },
-    bottomRowBox:{
-        //backgroundColor:'#f55',
-        width: 150,
+    BRowContainer:{
+        // backgroundColor: '#ddd',
+        borderBottomColor:"#6383A6",
+        borderBottomWidth: 1,
+        borderStyle:'dashed',
+        marginTop:7,
+        width: '90%',
+        height: '15%',
         flexDirection:'row',
-        justifyContent:'space-around'
+        alignItems:'center'
     },
-    bottomRowLeftText:{
-        width: 80,
-        color: '#6383A6'
+    BRowBox:{
+        flex: 1
+    },
+    tideInfoText:{
+        fontSize: 12,
+        marginTop: 10,
+        marginLeft: 10,
+        alignSelf:'flex-start'
     },
     moreInfoBox:{
         marginLeft: 170,
