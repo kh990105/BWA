@@ -46,8 +46,8 @@ const SearchPage =({navigation}) => {
               lightTheme
               round
               inputStyle={{backgroundColor: '#fff'}}
-              containerStyle={{ width:360, backgroundColor: '#fff', borderColor: '#6383A6', borderWidth: 2, borderBottomWidth: 2, borderBottomColor: '#6383A6', borderTopColor:'#6383A6', borderTopWidth:2, borderRadius: 20 }}
-              inputContainerStyle={{backgroundColor: '#fff'}}
+              containerStyle={styles.sbContainerStyle}
+              inputContainerStyle={{backgroundColor: '#fff', height: 40, width:320 }}
               underlineColorAndroid="transparent"
               value={setSearchValue}
               onChangeText={(text) => searchFunction(text)}
@@ -86,6 +86,19 @@ const styles = StyleSheet.create({
   },
   searchContainer:{
     flexDirection:'row',
-    marginTop: 10
+    marginTop: 20,
+    marginBottom: 15
+  },
+  sbContainerStyle:{
+    width:340,
+    marginLeft: 10,
+    backgroundColor: '#fff',
+    borderColor: '#6383A6', 
+    borderWidth: 2, 
+    borderBottomWidth: 2, 
+    borderBottomColor: '#6383A6', 
+    borderTopColor:'#6383A6', 
+    borderTopWidth:2, 
+    borderRadius: 20 
   }
 });
