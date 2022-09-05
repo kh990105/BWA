@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native';
 
 import InitialPage from './pages/InitialPage'
 import WeatherPage from './pages/WeatherPage';
+import SearchPage from './pages/SearchPage';
 
 
 
@@ -21,6 +22,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="InitialPage">
             <Stack.Screen name="InitialPage" component={InitialPage} options={{headerShown: false }}/>
             <Stack.Screen name="WeatherPage" component={WeatherPage} options={{headerShown: false }}/>
+            <Stack.Screen name="SearchPage" component={SearchPage} options={{headerShown: false }}/>
           </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

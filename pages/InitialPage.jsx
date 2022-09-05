@@ -15,7 +15,9 @@ const InitialPage = ({navigation}) => {
                 <Text style={styles.logoUnder}>지금 가고싶은 해수욕장의 날씨와 정보를 한번에!</Text>
             </View>
             <View style={styles.textInputConatainer}>
-                <TextInput placeholder='목적지를 입력해주세요' style={styles.TextInput}/>
+                <TouchableOpacity style={styles.TextInput} onPress={()=>navigation.push('SearchPage')} >
+                    <Text style={styles.SearchText}>내가 갈 해수욕장의 날씨가 궁금하다면? </Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.TextSubTitleBox}>
                 <Text style={styles.TextSubTitle}> 바다다가 추천하는 해수욕장</Text>
@@ -84,7 +86,12 @@ const styles = StyleSheet.create({
         borderRadius:20, 
         borderWidth:3, 
         borderColor:'#6383A6',
-        paddingLeft: 25,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    SearchText:{
+        color: "#A1A1A1",
+        fontSize: 15
     },
     TextSubTitleBox:{
         width: 300,

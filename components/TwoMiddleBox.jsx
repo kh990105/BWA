@@ -1,7 +1,7 @@
-import React,{ useEffect, useState } from 'react'
+import React,{useState,useEffect} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
-import axios from 'axios';
+import axios from 'axios'
 
 const TwoMiddleBox = () => {
 
@@ -10,32 +10,60 @@ const TwoMiddleBox = () => {
   const year = dt.getFullYear();
   const month = ('0' + (dt.getMonth() + 1)).slice(-2);
   const day = ('0' + dt.getDate()).slice(-2);
+  const time = dt.getHours()+"00"
   const dateString = year + month + day;
-
-
+  const wtdate = dateString + dt.getHours() + dt.getMinutes()
   const [sunset, setSunset] = useState([])
-//   const [info, setInfo] = useState([]);
+  const [tide, setTide] = useState([])
+  const [wh,setWh] = useState([])
+  const [temp,setTemp]=useState([])
+  const [tw,setTw] = useState([])
 
-//   console.log('info: ', info);
-
-  const serviceKey = 'Y4VLrNy6hcMz2TnhyK3%2BtCKiWrFOwWhhxg1R%2FgBtd9B1ty%2Fe%2FQz2z89s2e4IYd1p8hfkGw3lViB%2FGddDujE2vA%3D%3D'
+  const serviceKey = 'qk9nBBzMQRaV836surNRuBQcZb4cadI7MSWXH5dFl8sqsfuwN8xa3VFVMkb4whG8MnFIEYrCTs0cxf%2B1cVcttQ%3D%3D'
 
     useEffect(()=>{
         const a = async ()=>{
-            const sunset = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getSunInfoBeach?serviceKey=${serviceKey}&numOfRows=1&pageNo=10&dataType=JSON&Base_date=${dateString}&beach_num=304`);
-            // return sunset.data.response.body.items.item[0];
-            console.log(sunset);
+            const sunset = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getSunInfoBeach?serviceKey=${serviceKey}&numOfRows=1&pageNo=1&dataType=JSON&Base_date=20220901&beach_num=304`);
+            console.log(sunset.data.response.body.items.item[0]);
+            setSunset(sunset.data.response.body.items.item[0])
           }
+          a()
+    },[]);
+    useEffect(()=>{
+        const b = async ()=>{
+            const tide = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getTideInfoBeach?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&dataType=JSON&Base_date=${dateString}&beach_num=304`);
+            // console.log(tide.data.response.body.items.item);
+            setTide(tide.data.response.body.items.item)
+          }
+          b()
+    },[]);
+    useEffect(()=>{
+        const c = async ()=>{
+            const wh = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getWhBuoyBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=10&pageNo=1&searchTime=${wtdate}&beach_num=304`);
+            // console.log(wh.data.response.body.items.item[0]);
+            setWh(wh.data.response.body.items.item[0])
+          }
+          c()
+    },[]);
+    useEffect(()=>{
+        const d = async ()=>{
+            // const temp = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=12&base_date=${dateString}&base_time=${time}&beach_num=304`);
+            // console.log(temp.data.response.body.items.item);
+            // setTemp(temp.data.response.body.items.item)
+          }
+          d()
+    },[]);
+    useEffect(()=>{
+        const e = async ()=>{
+            const tw = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getTwBuoyBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=1&pageNo=10&searchTime=${wtdate}&beach_num=304`);
+            // console.log(tw.data.response.body.items.item[0]);
+            setTw(tw.data.response.body.items.item[0])
+          }
+          e()
+    },[]);
 
-          a().then((e)=>setSunset(e));
-
-        }, []);
-
-
-    
-   
-
-  return (
+  
+  return tide.length !== 0? (
     <>
     <View style={styles.twoBoxContainer}>
             <View style={styles.smallBox}>
@@ -43,22 +71,22 @@ const TwoMiddleBox = () => {
                     <Text style={styles.titleBoxText}>현재 날씨</Text>
                 </View>
                 <View style={styles.rowContainer}>
+                    {/* <View style={styles.rowBox}>
+                        <Text style={styles.rowLeftText}>강수확률 :</Text>
+                        <Text style={styles.rowRightText}>{temp[7].fcstValue}%</Text>
+                    </View>
                     <View style={styles.rowBox}>
-                        <Text style={styles.rowLeftText}>강수량 :</Text>
-                        <Text style={styles.rowRightText}>--</Text>
+                        <Text style={styles.rowLeftText}>강수량:</Text>
+                        <Text style={styles.rowRightText}>{temp[9].fcstValue}</Text>
                     </View>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>습도 :</Text>
-                        <Text style={styles.rowRightText}>81%</Text>
-                    </View>
-                    <View style={styles.rowBox}>
-                        <Text style={styles.rowLeftText}>풍향 :</Text>
-                        <Text style={styles.rowRightText}>남</Text>
+                        <Text style={styles.rowRightText}>{temp[10].fcstValue}%</Text>
                     </View>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>풍속 :</Text>
-                        <Text style={styles.rowRightText}>2.4m/s</Text>
-                    </View>
+                        <Text style={styles.rowRightText}>{temp[4].fcstValue}m/s</Text>
+                    </View> */}
                 </View>
             </View>
             <View style={styles.smallBox}>
@@ -75,7 +103,7 @@ const TwoMiddleBox = () => {
                     <Text style={styles.emoticonText}> 놀러가기 딱 좋아요~</Text>
                 </View>
                 <View>
-                    <Text style={styles.currentTimeText}>{CurrentTime} 업데이트</Text>
+                    <Text style={styles.currentTimeText}>{ CurrentTime } 업데이트</Text>
                 </View>
             </View>
     </View>
@@ -89,13 +117,13 @@ const TwoMiddleBox = () => {
                     <Text style={styles.rowLeftText}>수온</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>23.9˚</Text>
+                    <Text style={styles.rowRightText}>{tw.tw}˚</Text>
                 </View>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>파고</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>0.2m</Text>
+                    <Text style={styles.rowRightText}>{wh.wh}m</Text>
                 </View>
             </View>
             <View style={styles.BRowContainer}>
@@ -131,16 +159,16 @@ const TwoMiddleBox = () => {
                     <Text style={styles.rowLeftText}>조석정보</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>19:03</Text>
+                    <Text style={styles.rowRightText}>{tide[0].tiTime}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>19:03</Text>
+                    <Text style={styles.rowRightText}>{tide[1].tiTime}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>19:03</Text>
+                    <Text style={styles.rowRightText}>{tide[2].tiTime}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>19:03</Text>
+                    <Text style={styles.rowRightText}>{tide[3].tiTime}</Text>
                 </View>
             </View>
             <Text style={styles.tideInfoText}>※ 조석정보는 썰물 밀물 썰물 밀물 순으로 제공됩니다.</Text>
@@ -152,7 +180,7 @@ const TwoMiddleBox = () => {
         </View> */}
     </View>
     </>
-  )
+  ):(<View><Text>로딩중입니다.</Text></View>)
 }
 
 const styles = StyleSheet.create({
@@ -215,7 +243,7 @@ const styles = StyleSheet.create({
     currentTimeText:{
         color: "#6383A6",
         fontSize: 12,
-        marginLeft: 66,
+        marginLeft: 70,
         marginTop: 10
     },
     BottomContainer:{
