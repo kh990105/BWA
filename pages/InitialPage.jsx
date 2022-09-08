@@ -22,7 +22,7 @@ const InitialPage = ({navigation}) => {
             <View style={styles.TextSubTitleBox}>
                 <Text style={styles.TextSubTitle}> 바다다가 추천하는 해수욕장</Text>
             </View>
-            <View>
+            <View style={styles.cardContainer}>
                 <View style={styles.Card}>    
                     <TouchableOpacity onPress={()=>navigation.push('WeatherPage')}>
                         <ImageBackground source={require('../assets/images/해운대.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
     TextSubTitle:{
         fontSize:18,
         fontWeight:'bold'
+    },
+    cardContainer:{
+        width: '100%',
+        alignItems:'center'
     },
     Card:{
         width:320,

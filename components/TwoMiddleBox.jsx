@@ -2,92 +2,80 @@ import React,{useState,useEffect} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
 import axios from 'axios'
+// import BeachList from '../data/BeachList.json'
 
 const TwoMiddleBox = () => {
+  // const BeachNum = BeachList
 
   const dt = new Date();
   const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
   const year = dt.getFullYear();
   const month = ('0' + (dt.getMonth() + 1)).slice(-2);
   const day = ('0' + dt.getDate()).slice(-2);
-  const time = dt.getHours()+"00"
+  const time = dt.getHours()-1+"30"
   const dateString = year + month + day;
   const wtdate = dateString + dt.getHours() + dt.getMinutes()
-  const [sunset, setSunset] = useState([])
+
+  const [Beach, setBeach] = useState([])
   const [tide, setTide] = useState([])
   const [wh,setWh] = useState([])
-  const [temp,setTemp]=useState([])
+  const [NWeather, setNWeather] = useState([])
   const [tw,setTw] = useState([])
 
-  const serviceKey = 'qk9nBBzMQRaV836surNRuBQcZb4cadI7MSWXH5dFl8sqsfuwN8xa3VFVMkb4whG8MnFIEYrCTs0cxf%2B1cVcttQ%3D%3D'
-
+  const serviceKey = 'j4usPa71r/xJpsTJYSPScw=='
+  const serviceKey1 = 'qk9nBBzMQRaV836surNRuBQcZb4cadI7MSWXH5dFl8sqsfuwN8xa3VFVMkb4whG8MnFIEYrCTs0cxf%2B1cVcttQ%3D%3D'
+    //console.log(time)
     useEffect(()=>{
         const a = async ()=>{
-            const sunset = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getSunInfoBeach?serviceKey=${serviceKey}&numOfRows=1&pageNo=1&dataType=JSON&Base_date=20220901&beach_num=304`);
-            console.log(sunset.data.response.body.items.item[0]);
-            setSunset(sunset.data.response.body.items.item[0])
+            const Beach = await axios.get( ` http://www.khoa.go.kr/api/oceangrid/buObsRecent/search.do?ServiceKey=${serviceKey}&ObsCode=TW_0062&ResultType=json`);
+            console.log(Beach.data.result.data);
+            setBeach(Beach.data.result.data)
           }
           a()
     },[]);
-    useEffect(()=>{
+
+    useEffect (()=>{
         const b = async ()=>{
-            const tide = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getTideInfoBeach?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&dataType=JSON&Base_date=${dateString}&beach_num=304`);
-            // console.log(tide.data.response.body.items.item);
-            setTide(tide.data.response.body.items.item)
-          }
-          b()
+            const tide = await axios.get(` http://www.khoa.go.kr/api/oceangrid/tideObsPreTab/search.do?ServiceKey=${serviceKey}&ObsCode=DT_0061&Date=20220904&ResultType=json`)
+            console.log(tide)
+            setTide(tide.data.result.data)
+        }
+        b()  
     },[]);
     useEffect(()=>{
-        const c = async ()=>{
-            const wh = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getWhBuoyBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=10&pageNo=1&searchTime=${wtdate}&beach_num=304`);
-            // console.log(wh.data.response.body.items.item[0]);
-            setWh(wh.data.response.body.items.item[0])
-          }
+        const  c= async ()=>{
+            const NWeather = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getUltraSrtFcstBeach?beach_num=1&base_date=${dateString}&base_time=${time}&ServiceKey=${serviceKey1}&dataType=JSON&numOfRows=100`);
+            console.log(NWeather);
+            setNWeather(NWeather.data.response.body.items.item);
+          } 
           c()
     },[]);
-    useEffect(()=>{
-        const d = async ()=>{
-            // const temp = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=12&base_date=${dateString}&base_time=${time}&beach_num=304`);
-            // console.log(temp.data.response.body.items.item);
-            // setTemp(temp.data.response.body.items.item)
-          }
-          d()
-    },[]);
-    useEffect(()=>{
-        const e = async ()=>{
-            const tw = await axios.get( `http://apis.data.go.kr/1360000/BeachInfoservice/getTwBuoyBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=1&pageNo=10&searchTime=${wtdate}&beach_num=304`);
-            // console.log(tw.data.response.body.items.item[0]);
-            setTw(tw.data.response.body.items.item[0])
-          }
-          e()
-    },[]);
 
-  
-  return tide.length !== 0? (
+  return Beach.length !== 0 && tide.length !== 0 && NWeather.length !== 0 ?(
     <>
     <View style={styles.twoBoxContainer}>
             <View style={styles.smallBox}>
                 <View style={styles.titleBox}>
                     <Text style={styles.titleBoxText}>현재 날씨</Text>
-                </View>
-                <View style={styles.rowContainer}>
-                    {/* <View style={styles.rowBox}>
+                </View> 
+                {/* <View style={styles.rowContainer}>
+                    <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>강수확률 :</Text>
-                        <Text style={styles.rowRightText}>{temp[7].fcstValue}%</Text>
+                        <Text style={styles.rowRightText}>{NWeather[6].fcstValue}%</Text>
                     </View>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>강수량:</Text>
-                        <Text style={styles.rowRightText}>{temp[9].fcstValue}</Text>
+                        <Text style={styles.rowRightText}>{NWeather[12].fcstValue}</Text>
                     </View>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>습도 :</Text>
-                        <Text style={styles.rowRightText}>{temp[10].fcstValue}%</Text>
+                        <Text style={styles.rowRightText}>{NWeather[30].fcstValue}%</Text>
                     </View>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>풍속 :</Text>
-                        <Text style={styles.rowRightText}>{temp[4].fcstValue}m/s</Text>
-                    </View> */}
-                </View>
+                        <Text style={styles.rowRightText}>{NWeather[54].fcstValue}m/s</Text>
+                    </View>
+                </View> */}
             </View>
             <View style={styles.smallBox}>
                 <View style={styles.titleBox}>
@@ -117,13 +105,13 @@ const TwoMiddleBox = () => {
                     <Text style={styles.rowLeftText}>수온</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{tw.tw}˚</Text>
+                    <Text style={styles.rowRightText}>{Math.round(Beach.water_temp)}˚</Text>
                 </View>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>파고</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{wh.wh}m</Text>
+                    <Text style={styles.rowRightText}>{Math.round(Beach.wave_height*10)/10}m</Text>
                 </View>
             </View>
             <View style={styles.BRowContainer}>
@@ -145,32 +133,32 @@ const TwoMiddleBox = () => {
                     <Text style={styles.rowLeftText}>일출</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{sunset.sunrise}</Text>
+                    <Text style={styles.rowRightText}>06:02</Text>
                 </View>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>일몰</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{sunset.sunset}</Text>
+                    <Text style={styles.rowRightText}>07:32</Text>
                 </View>
             </View>
-            <View style={styles.BRowContainer}>
+            {/* <View style={styles.BRowContainer}>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>조석정보</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{tide[0].tiTime}</Text>
+                    <Text style={styles.rowRightText}>{(tide[1].tph_time).substring (10,16)}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{tide[1].tiTime}</Text>
+                    <Text style={styles.rowRightText}>{(tide[2].tph_time).substring (10,16)}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{tide[2].tiTime}</Text>
+                    <Text style={styles.rowRightText}>{(tide[3].tph_time).substring (10,16)}</Text>
                 </View>
                 <View style={styles.BRowBox}>
-                    <Text style={styles.rowRightText}>{tide[3].tiTime}</Text>
+                    <Text style={styles.rowRightText}>{(tide[0].tph_time).substring (10,16)}</Text>
                 </View>
-            </View>
+            </View> */}
             <Text style={styles.tideInfoText}>※ 조석정보는 썰물 밀물 썰물 밀물 순으로 제공됩니다.</Text>
         </View>
         {/* <View style={styles.moreInfoBox}>
@@ -180,7 +168,7 @@ const TwoMiddleBox = () => {
         </View> */}
     </View>
     </>
-  ):(<View><Text>로딩중입니다.</Text></View>)
+  ):(<View><Text>메롱</Text></View>)
 }
 
 const styles = StyleSheet.create({
@@ -217,6 +205,7 @@ const styles = StyleSheet.create({
     rowBox:{
         width: 140,
         height: 27,
+        marginTop: 3,
         flexDirection: 'row',
     },
     rowLeftText:{

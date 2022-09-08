@@ -1,17 +1,18 @@
 import React from 'react'
-import { View, StatusBar } from 'react-native'
+import { ScrollView, StatusBar } from 'react-native'
 import WeatherPageHeader from '../components/WeatherPageHeader'
 import TodayTemperature from '../components/TodayTemperature'
 import TwoMiddleBox from '../components/TwoMiddleBox'
 
-const WeatherPage = ({navigation}) => {
+const WeatherPage = ({navigation, route}) => {
+  console.log(route.params);
   return (
-    <View>
+    <ScrollView>
       <StatusBar/>
-      <WeatherPageHeader navigation={navigation} />
+      <WeatherPageHeader navigation={navigation} route={route.params} /> 
       <TodayTemperature />
       <TwoMiddleBox />
-    </View>
+    </ScrollView>
   )
 }
 
