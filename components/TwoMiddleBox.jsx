@@ -4,52 +4,10 @@ import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
 import axios from 'axios'
 // import BeachList from '../data/BeachList.json'
 
-const TwoMiddleBox = () => {
-  // const BeachNum = BeachList
-
-  const dt = new Date();
-  const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
-  const year = dt.getFullYear();
-  const month = ('0' + (dt.getMonth() + 1)).slice(-2);
-  const day = ('0' + dt.getDate()).slice(-2);
-  const time = dt.getHours()-1+"30"
-  const dateString = year + month + day;
-  const wtdate = dateString + dt.getHours() + dt.getMinutes()
-
-  const [Beach, setBeach] = useState([])
-  const [tide, setTide] = useState([])
-  const [wh,setWh] = useState([])
-  const [NWeather, setNWeather] = useState([])
-  const [tw,setTw] = useState([])
-
-  const serviceKey = 'j4usPa71r/xJpsTJYSPScw=='
-  const serviceKey1 = 'qk9nBBzMQRaV836surNRuBQcZb4cadI7MSWXH5dFl8sqsfuwN8xa3VFVMkb4whG8MnFIEYrCTs0cxf%2B1cVcttQ%3D%3D'
-    //console.log(time)
-    useEffect(()=>{
-        const a = async ()=>{
-            const Beach = await axios.get( ` http://www.khoa.go.kr/api/oceangrid/buObsRecent/search.do?ServiceKey=${serviceKey}&ObsCode=TW_0062&ResultType=json`);
-            console.log(Beach.data.result.data);
-            setBeach(Beach.data.result.data)
-          }
-          a()
-    },[]);
-
-    useEffect (()=>{
-        const b = async ()=>{
-            const tide = await axios.get(` http://www.khoa.go.kr/api/oceangrid/tideObsPreTab/search.do?ServiceKey=${serviceKey}&ObsCode=DT_0061&Date=20220904&ResultType=json`)
-            console.log(tide)
-            setTide(tide.data.result.data)
-        }
-        b()  
-    },[]);
-    useEffect(()=>{
-        const  c= async ()=>{
-            const NWeather = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getUltraSrtFcstBeach?beach_num=1&base_date=${dateString}&base_time=${time}&ServiceKey=${serviceKey1}&dataType=JSON&numOfRows=100`);
-            console.log(NWeather);
-            setNWeather(NWeather.data.response.body.items.item);
-          } 
-          c()
-    },[]);
+const TwoMiddleBox = ({Beach, NWeather , tide}) => {
+    const dt = new Date();
+    const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
+    console.log(NWeather)
 
   return Beach.length !== 0 && tide.length !== 0 && NWeather.length !== 0 ?(
     <>
@@ -58,7 +16,7 @@ const TwoMiddleBox = () => {
                 <View style={styles.titleBox}>
                     <Text style={styles.titleBoxText}>현재 날씨</Text>
                 </View> 
-                {/* <View style={styles.rowContainer}>
+                <View style={styles.rowContainer}>
                     <View style={styles.rowBox}>
                         <Text style={styles.rowLeftText}>강수확률 :</Text>
                         <Text style={styles.rowRightText}>{NWeather[6].fcstValue}%</Text>
@@ -75,20 +33,21 @@ const TwoMiddleBox = () => {
                         <Text style={styles.rowLeftText}>풍속 :</Text>
                         <Text style={styles.rowRightText}>{NWeather[54].fcstValue}m/s</Text>
                     </View>
-                </View> */}
+                </View>
             </View>
             <View style={styles.smallBox}>
                 <View style={styles.titleBox}>
                     <Text style={styles.titleBoxText}>해수욕장 혼잡도</Text>
                 </View>
                 <View style={styles.emoticonBox}>
-                    <Emoticon name='emoticon-cool-outline' size={35} color="#39B25B" />
+                    <Emoticon name='emoticon-cool-outline' size={35} color="#BCBCBC" /> 
                     <Emoticon name='emoticon-sad-outline' size={35} color="#BCBCBC" />
                     <Emoticon name='emoticon-angry-outline' size={35} color="#BCBCBC" />
                 </View>
                 <View style={styles.emoticonTextBox}>
-                    <Text style={styles.emoticonText}> 사람이 456명 있어요!</Text>
-                    <Text style={styles.emoticonText}> 놀러가기 딱 좋아요~</Text>
+                    {/* <Text style={styles.emoticonText}> 사람이 456명 있어요!</Text>
+                    <Text style={styles.emoticonText}> 놀러가기 딱 좋아요~ </Text> */}
+                    <Text style={styles.noInfoText}> 6-8월만 정보가 제공됩니다.</Text>
                 </View>
                 <View>
                     <Text style={styles.currentTimeText}>{ CurrentTime } 업데이트</Text>
@@ -142,7 +101,7 @@ const TwoMiddleBox = () => {
                     <Text style={styles.rowRightText}>07:32</Text>
                 </View>
             </View>
-            {/* <View style={styles.BRowContainer}>
+            <View style={styles.BRowContainer}>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>조석정보</Text>
                 </View>
@@ -158,7 +117,7 @@ const TwoMiddleBox = () => {
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>{(tide[0].tph_time).substring (10,16)}</Text>
                 </View>
-            </View> */}
+            </View>
             <Text style={styles.tideInfoText}>※ 조석정보는 썰물 밀물 썰물 밀물 순으로 제공됩니다.</Text>
         </View>
         {/* <View style={styles.moreInfoBox}>
@@ -168,19 +127,19 @@ const TwoMiddleBox = () => {
         </View> */}
     </View>
     </>
-  ):(<View><Text>메롱</Text></View>)
+  ):(<View><Text>로딩</Text></View>)
 }
+
 
 const styles = StyleSheet.create({
     twoBoxContainer:{
-        marginLeft: 20,
-        marginRight: 20,
+        width: "100%",
         flexDirection:'row',
-        justifyContent:'space-between'
+        justifyContent:'space-evenly'
     },
     smallBox:{
-        width: 175,
-        height: 175,
+        width: 170,
+        height: 170,
         borderColor: "#6383A6",
         borderWidth: 3,
         borderRadius: 10,
@@ -229,18 +188,23 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight:'bold'
     },
+    noInfoText:{
+        fontSize: 12,
+        fontWeight:'bold',
+        marginTop: 10 
+    },
     currentTimeText:{
         color: "#6383A6",
         fontSize: 12,
-        marginLeft: 70,
-        marginTop: 10
+        marginTop:17,
+        marginLeft: 70
     },
     BottomContainer:{
         marginBottom: 20
     },
     BottomBox:{
          height: 250,
-         margin: 20,
+         margin: 15,
          borderRadius: 10, 
          borderColor: "#6383A6",
          borderWidth: 3,
