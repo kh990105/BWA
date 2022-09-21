@@ -1,51 +1,20 @@
-import React, { useEffect,useState } from 'react'
+import React ,{ useState, useEffect}from 'react'
 import { ScrollView, View, Text, StyleSheet, BackHandler, ShadowPropTypesIOS } from 'react-native'
 import WeatherIcon from 'react-native-vector-icons/Feather'
 import axios from 'axios'
 
 
-const TodayTemperature = () => {
-
-    const dt = new Date();
-    const year = dt.getFullYear();
-    const month = ('0' + (dt.getMonth() + 1)).slice(-2);
-    const day = ('0' + dt.getDate()).slice(-2);
-    const baseDate = (year + month + day) - 1;
-    const [weather,setWeather] = useState([]);
-    const [skyCodeValue, setSkyCodeValue] = useState('')
-    const [SKYcode,setSkyCode] = useState([]);
-    const[Temp,setTemp] = useState([]);
-    const serviceKey = 'qk9nBBzMQRaV836surNRuBQcZb4cadI7MSWXH5dFl8sqsfuwN8xa3VFVMkb4whG8MnFIEYrCTs0cxf%2B1cVcttQ%3D%3D'
-    useEffect(()=>{
-        const TdWeather = async ()=>{
-            const weather = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?serviceKey=${serviceKey}&dataType=JSON&numOfRows=279&base_date=20220907&base_time=2300&beach_num=304`);
-            console.log(weather.data.response.body.items.item);
-            setWeather(weather.data.response.body.items.item)
-          }
-          TdWeather()
-    },[]);
-    for(let i= 0 ; i< weather.length; i++){
-        if(weather[i].category ==="TMP"){
-            Temp.push(weather[i]);
-        }
+const TodayTemperature = ({Temp,realSky}) => {
+    console.log(realSky)
+    const skyCode = []
+for(let i= 0; i< realSky.length; i++){
+    if(realSky[i]==="1"){
+        skyCode.push('sun')
+    }else{
+        skyCode.push('cloud')
     }
-
-    for(let i= 0 ; i< weather.length; i++){
-        if(weather[i].category==="SKY"){
-            SKYcode.push(weather[i]);
-        }
-    }
-
-    // const skycode = 1
-    // switch(skycode) {
-    //   case 1:
-    //       console.log('sun')
-    //       break;
-    //   default:
-    //       console.log('cloud')
-    //       break;
-    // }
-
+}
+console.log(skyCode)
 // //강수형태 (단기)
 //   const PTYcode = 4;
 
@@ -66,14 +35,13 @@ const TodayTemperature = () => {
 //         console.log('cloud-drizzle');
 //         break;
 //   }
-
  const List1 = () => {
     let arr = [];
-    Temp.map((x, index)=>{
+    Temp.map((id, index,id1)=>{
         arr.push(
-            <View style={styles.todayTempBox}>
+            <View style={styles.todayTempBox} >
                     <Text style={styles.clock}>{(Temp[index].fcstTime).substr(0,2)}:00</Text>
-                    <WeatherIcon name="sun" size={35} color="#fff" />
+                    <WeatherIcon name={skyCode[index]} size={35} color="#fff" />
                     <Text style={styles.smallTemp}>{Temp[index].fcstValue}˚</Text>
             </View>
         )
@@ -81,7 +49,7 @@ const TodayTemperature = () => {
     return arr;
  }
 
-  return weather.length !== 0 ? (
+  return Temp.length !== 0 ? (
 
     <View style={styles.container}>
         <ScrollView 
@@ -97,10 +65,14 @@ const TodayTemperature = () => {
 
 
 
+
 const styles = StyleSheet.create({
     container:{
         height: 150,
-        margin: 20,
+        marginLeft: 10,
+        marginRight:10,
+        marginTop:20,
+        marginBottom:20,
         borderRadius: 10,  
         backgroundColor: '#B1C1D3',
         justifyContent:'center',

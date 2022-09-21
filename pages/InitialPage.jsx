@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TouchableOpacity, StatusBar, StyleSheet, TextIn
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const InitialPage = ({navigation}) => {
+    
   return (
     <ScrollView style={styles.bigContainer}>
         <StatusBar />
@@ -24,21 +25,25 @@ const InitialPage = ({navigation}) => {
             </View>
             <View style={styles.cardContainer}>
                 <View style={styles.Card}>    
-                    <TouchableOpacity onPress={()=>navigation.push('WeatherPage')}>
+                    <TouchableOpacity onPress={()=>navigation.push('WeatherPage',["해운대 해수욕장", 304])} >
                         <ImageBackground source={require('../assets/images/해운대.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
                             <Text style={styles.CardText}>해운대 해수욕장</Text>
                         </ImageBackground>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.Card}>
-                    <ImageBackground source={require('../assets/images/속초.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
-                        <Text style={styles.CardText}>속초 해수욕장</Text>
-                    </ImageBackground>
+                    <TouchableOpacity onPress={()=>navigation.push('WeatherPage',["속초 해수욕장", 201])} >
+                        <ImageBackground source={require('../assets/images/속초.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
+                            <Text style={styles.CardText}>속초 해수욕장</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.Card}>
-                    <ImageBackground source={require('../assets/images/을왕리.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
-                        <Text style={styles.CardText}>을왕리 해수욕장</Text>
-                    </ImageBackground>
+                    <TouchableOpacity onPress={()=>navigation.push('WeatherPage',["을왕리 해수욕장", 1])}>
+                        <ImageBackground source={require('../assets/images/을왕리.jpg')} resizeMode='cover' style={styles.CardImage} imageStyle={{ borderRadius: 15}}>
+                            <Text style={styles.CardText}>을왕리 해수욕장</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

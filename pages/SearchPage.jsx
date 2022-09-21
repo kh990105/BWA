@@ -15,13 +15,14 @@ const SearchPage = ({navigation}) => {
   const arrayholder = BeachList;
   
   const searchFunction = (text) => {
+    
       const updatedData = arrayholder.filter((item) => {
       const item_data = `${item.name})`;
       const text_data = text;
       return item_data.indexOf(text_data) > -1;
     });
     setData(updatedData);
-    setSearchValue(text)
+    setSearchValue(text_data)
   };
 
   const Item = ({ name, id, navigation}) => {
