@@ -5,7 +5,11 @@ import Icon2 from 'react-native-vector-icons/Ionicons'
 import WeatherIcon from 'react-native-vector-icons/Feather'
 
 
+<<<<<<< HEAD
 const WeatherPageHeader = ({navigation, route, highLow, NWeather,Tmx,Tmn}) => {
+=======
+const WeatherPageHeader = ({navigation, route, highLow, NWeather}) => {
+>>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
   
 
   return NWeather.length !== 0 && highLow.length !== 0 ? (

@@ -1,13 +1,13 @@
 import React from 'react'
-import { View, ScrollView, Text, TouchableOpacity, StatusBar, StyleSheet, TextInput, ImageBackground } from 'react-native'
+import { View, ScrollView, Text, TouchableOpacity, StatusBar, StyleSheet, ImageBackground } from 'react-native'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const InitialPage = ({navigation}) => {
     
   return (
     <ScrollView style={styles.bigContainer}>
-        <StatusBar />
         <View style={styles.container}>
+        <StatusBar />
             <View style={styles.logoContainer}>
                 <View style={styles.logoBox}>
                     <Text style={styles.TextLogo}>BADADA</Text>
@@ -15,7 +15,7 @@ const InitialPage = ({navigation}) => {
                 </View>
                 <Text style={styles.logoUnder}>지금 가고싶은 해수욕장의 날씨와 정보를 한번에!</Text>
             </View>
-            <View style={styles.textInputConatainer}>
+            <View style={styles.textInputContainer}>
                 <TouchableOpacity style={styles.TextInput} onPress={()=>navigation.push('SearchPage')} >
                     <Text style={styles.SearchText}>내가 갈 해수욕장의 날씨가 궁금하다면? </Text>
                 </TouchableOpacity>
@@ -59,18 +59,18 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     container:{
-        marginLeft:50,
-        marginRight:50,
-        marginTop:50
+        marginLeft:'10%',
+        marginRight:'10%',
+        marginTop:'13%',
+        marginBottom: '13%'
     },
     logoContainer:{
         height: 150,
         alignItems:'center',
         justifyContent:'center',
-        // backgroundColor: '#ddd'
     },
     logoBox:{
-        flexDirection:'row',
+        flexDirection:'row'
     },
     TextLogo:{
         fontSize:45,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         color: '#6383A6',
         fontSize: 13
     },
-    textInputConatainer:{
+    textInputContainer:{
         marginBottom:20,
         alignItems:'center'
     },

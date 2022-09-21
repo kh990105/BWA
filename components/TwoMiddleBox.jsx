@@ -2,12 +2,19 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Emoticon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+<<<<<<< HEAD
 
 
 const TwoMiddleBox = ({Beach, NWeather , tide}) => {
     const dt = new Date();
     const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
 
+=======
+const TwoMiddleBox = ({Beach, NWeather , tide}) => {
+    const dt = new Date();
+    const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
+    console.log(NWeather)
+>>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
 
   return Beach.length !== 0 && tide.length !== 0 && NWeather.length !== 0 ?(
     <>
@@ -138,8 +145,13 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly'
     },
     smallBox:{
+<<<<<<< HEAD
         width: '46%',
         height: 175,
+=======
+        width: 170,
+        height: 170,
+>>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
         borderColor: "#6383A6",
         borderWidth: 3,
         borderRadius: 10,
@@ -197,14 +209,22 @@ const styles = StyleSheet.create({
         color: "#6383A6",
         fontSize: 12,
         marginTop:17,
+<<<<<<< HEAD
         marginLeft: 60
+=======
+        marginLeft: 70
+>>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
     },
     BottomContainer:{
         marginBottom: 20
     },
     BottomBox:{
          height: 250,
+<<<<<<< HEAD
          margin: 10,
+=======
+         margin: 15,
+>>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
          borderRadius: 10, 
          borderColor: "#6383A6",
          borderWidth: 3,
