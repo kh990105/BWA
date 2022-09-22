@@ -5,10 +5,15 @@ import Icon2 from 'react-native-vector-icons/Ionicons'
 import WeatherIcon from 'react-native-vector-icons/Feather'
 
 
-const WeatherPageHeader = ({navigation, route, highLow, NWeather,Tmx,Tmn}) => {
-  
-
-  return NWeather.length !== 0 && highLow.length !== 0 ? (
+const WeatherPageHeader = ({navigation, route, highLow, NWeather,Tmx,Tmn,SKY}) => {
+  console.log(SKY[0])
+  const skyStatus =([])
+  if(SKY==="1"){
+    skyStatus.push('sun')
+  }else{
+    skyStatus.push('cloud')
+  }
+  return  (
     <View style={styles.headerContainer}>
       <ImageBackground source={require('../assets/images/haeun.png')} style={styles.haeundaeImg} imageStyle={{opacity:0.75}}>
         <View style={styles.headerIconBox}>
@@ -23,7 +28,7 @@ const WeatherPageHeader = ({navigation, route, highLow, NWeather,Tmx,Tmn}) => {
             <Text style={styles.locationBigText}>{route[0]}</Text>
         </View>
         <View style={styles.temperatureBox}>
-          <WeatherIcon name="sun" size={40} color="#fff" style={styles.sunIcon} />
+          <WeatherIcon name={skyStatus} size={40} color="#fff" style={styles.sunIcon} />
           <Text style={styles.temperatureBigText}>{NWeather[24].fcstValue}˚</Text>
         </View>
         <View style={styles.lowHigh}>
@@ -31,7 +36,7 @@ const WeatherPageHeader = ({navigation, route, highLow, NWeather,Tmx,Tmn}) => {
         </View>
       </ImageBackground>
     </View>
-  ): (<View><Text>로딩중</Text></View>)
+  )
 }
 
 

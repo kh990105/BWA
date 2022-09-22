@@ -5,7 +5,6 @@ import axios from 'axios'
 
 
 const TodayTemperature = ({Temp,realSky}) => {
-    console.log(realSky)
     const skyCode = []
 for(let i= 0; i< realSky.length; i++){
     if(realSky[i]==="1"){
@@ -14,7 +13,6 @@ for(let i= 0; i< realSky.length; i++){
         skyCode.push('cloud')
     }
 }
-console.log(skyCode)
 // //강수형태 (단기)
 //   const PTYcode = 4;
 
@@ -49,7 +47,7 @@ console.log(skyCode)
     return arr;
  }
 
-  return Temp.length !== 0 ? (
+  return (
 
     <View style={styles.container}>
         <ScrollView 
@@ -60,7 +58,7 @@ console.log(skyCode)
            
         </ScrollView>
     </View>
-  ): (<View><Text style={{fontSize: 100}}>로딩</Text></View>)
+  )
 }
 
 

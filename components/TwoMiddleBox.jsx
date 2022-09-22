@@ -9,7 +9,7 @@ const TwoMiddleBox = ({Beach, NWeather , tide}) => {
     const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
 
 
-  return Beach.length !== 0 && tide.length !== 0 && NWeather.length !== 0 ?(
+  return (
     <>
     <View style={styles.twoBoxContainer}>
             <View style={styles.smallBox}>
@@ -127,7 +127,7 @@ const TwoMiddleBox = ({Beach, NWeather , tide}) => {
         </View> */}
     </View>
     </>
-  ):(<View><Text>로딩</Text></View>)
+  )
 }
 
 

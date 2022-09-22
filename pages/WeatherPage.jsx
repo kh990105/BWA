@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react'
-import { ScrollView, StatusBar } from 'react-native'
+import { ScrollView, StatusBar,View,Text ,Image} from 'react-native'
 import WeatherPageHeader from '../components/WeatherPageHeader'
 import TodayTemperature from '../components/TodayTemperature'
 import TwoMiddleBox from '../components/TwoMiddleBox'
@@ -7,7 +7,7 @@ import TwoMiddleBox from '../components/TwoMiddleBox'
 import axios from 'axios'
 
 const WeatherPage = ({navigation, route}) => {
-  console.log(route.params)
+  // console.log(route.params)
   const dt = new Date();
   const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
   const year = dt.getFullYear();
@@ -29,11 +29,12 @@ const WeatherPage = ({navigation, route}) => {
   const NWT1H = [];
   const Tmn = [];
   const Tmnx = [];
+
   /**헤더페이지 */
           useEffect(()=>{
             const WPa = async ()=>{
                 const NWeather = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getUltraSrtFcstBeach?beach_num=${route.params[1]}&base_date=${dateString}&base_time=${Atime}&ServiceKey=${serviceKey}&dataType=JSON&numOfRows=100`);
-                // console.log(NWeather);
+                // console.log(NWeather.data.response.body.items.item);
                 setNWeather(NWeather.data.response.body.items.item);
               }
 
@@ -41,7 +42,7 @@ const WeatherPage = ({navigation, route}) => {
           },[]);
           useEffect(()=>{
             const WPb = async ()=>{
-              const highLow = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?beach_num=${route.params[1]}&base_date=${baseDate}&base_time=2300&ServiceKey=${serviceKey}&dataType=JSON&numOfRows=279`);
+              const highLow = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?beach_num=${route.params[1]}&base_date=${baseDate}&base_time=2300&ServiceKey=${serviceKey}&dataType=JSON&numOfRows=290`);
               // console.log(highLow.data.response.body.items.item);
               setHighLow(highLow.data.response.body.items.item);
             } 
@@ -76,8 +77,7 @@ const WeatherPage = ({navigation, route}) => {
         NWT1H.push(NWeather[i].fcstValue)
       }
     }
-    const arr= [...Tmn, ...NWT1H]
-    console.log(arr)
+
     /**최고 최저 기온 */
         for(let i = 0; i< highLow.length; i++){
           if(highLow[i].category ==="TMN"){
@@ -111,14 +111,17 @@ const WeatherPage = ({navigation, route}) => {
       }
     }
 
-  return (
+  return  NWeather.length !== 0 && highLow.length !== 0 &&Beach.length !== 0 && tide.length !== 0 && NWeather.length !== 0 &&Temp.length !== 0 ? (
     <ScrollView>
       <StatusBar/>
-      <WeatherPageHeader navigation={navigation} route={route.params} NWeather = {NWeather} highLow = {highLow} Tmx={Tmnx} Tmn={Tmn}/> 
+      <WeatherPageHeader navigation={navigation} route={route.params} NWeather = {NWeather} highLow = {highLow} Tmx={Tmnx} Tmn={Tmn} SKY={realSky}/> 
       <TodayTemperature  Temp={realTime} realSky={realSky}/>
       <TwoMiddleBox tide={tide} Beach={Beach} NWeather = {NWeather} CurrentTime={CurrentTime}/> 
     </ScrollView>
-  )
+  ): (<View style={{alignItems:'center',justifyContent:'center'}}>
+        <Image source={require('../assets/images/Loading.gif')} style={{width:200,height:200}}/>
+        <Text>날씨정보를 불러오는 중입니다.</Text>  
+      </View>)
 }
 
 
