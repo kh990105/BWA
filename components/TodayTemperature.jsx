@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 import React ,{ useState, useEffect}from 'react'
-=======
-import React from 'react'
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
 import { ScrollView, View, Text, StyleSheet, BackHandler, ShadowPropTypesIOS } from 'react-native'
 import WeatherIcon from 'react-native-vector-icons/Feather'
+import axios from 'axios'
 
 
-<<<<<<< HEAD
 const TodayTemperature = ({Temp,realSky}) => {
     console.log(realSky)
     const skyCode = []
@@ -19,20 +15,6 @@ for(let i= 0; i< realSky.length; i++){
     }
 }
 console.log(skyCode)
-=======
-
-const TodayTemperature = ({Temp, SKYcode}) => {
-//     const skycode = 1
-//     switch(skycode) {
-//       case 1:
-//           console.log('sun')
-//           break;
-//       default:
-//           console.log('cloud')
-//           break;
-//     }
-
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
 // //강수형태 (단기)
 //   const PTYcode = 4;
 
@@ -87,14 +69,10 @@ const TodayTemperature = ({Temp, SKYcode}) => {
 const styles = StyleSheet.create({
     container:{
         height: 150,
-<<<<<<< HEAD
         marginLeft: 10,
         marginRight:10,
         marginTop:20,
         marginBottom:20,
-=======
-        margin: 15,
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
         borderRadius: 10,  
         backgroundColor: '#B1C1D3',
         justifyContent:'center',

@@ -7,12 +7,7 @@ import TwoMiddleBox from '../components/TwoMiddleBox'
 import axios from 'axios'
 
 const WeatherPage = ({navigation, route}) => {
-<<<<<<< HEAD
   console.log(route.params)
-=======
-  // console.log(route.params)
-
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
   const dt = new Date();
   const CurrentTime = (dt.getHours())+":"+dt.getMinutes()+":"+dt.getSeconds()
   const year = dt.getFullYear();
@@ -30,16 +25,10 @@ const WeatherPage = ({navigation, route}) => {
   
   const [Beach, setBeach] = useState([])
   const [tide, setTide] = useState([])
-<<<<<<< HEAD
   const Temp = [];
   const NWT1H = [];
   const Tmn = [];
   const Tmnx = [];
-=======
-  const [SKYcode,setSkyCode] = useState([]);
-  const[Temp,setTemp] = useState([]);
-
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
   /**헤더페이지 */
           useEffect(()=>{
             const WPa = async ()=>{
@@ -47,7 +36,6 @@ const WeatherPage = ({navigation, route}) => {
                 // console.log(NWeather);
                 setNWeather(NWeather.data.response.body.items.item);
               }
-<<<<<<< HEAD
 
               WPa()
           },[]);
@@ -60,15 +48,6 @@ const WeatherPage = ({navigation, route}) => {
             WPb()
           },[])
           
-=======
-            const WPb = async ()=>{
-                const highLow = await axios.get(`http://apis.data.go.kr/1360000/BeachInfoservice/getVilageFcstBeach?beach_num=${route.params[1]}&base_date=${baseDate}&base_time=2300&ServiceKey=${serviceKey}&dataType=JSON&numOfRows=279`);
-                // console.log(highLow);
-                setHighLow(highLow.data.response.body.items.item);
-              } 
-              WPa(),WPb()
-          },[]);
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
   /**가운데 박스 */
             useEffect(()=>{
               const a = async ()=>{
@@ -76,7 +55,6 @@ const WeatherPage = ({navigation, route}) => {
                   // console.log(Beach.data.result.data);
                   setBeach(Beach.data.result.data)
                 }
-<<<<<<< HEAD
               a()
           },[]);
           useEffect(()=>{
@@ -132,44 +110,13 @@ const WeatherPage = ({navigation, route}) => {
         realSky.push(SkyCode[i].fcstValue)
       }
     }
-=======
-              const b = async ()=>{
-                  const tide = await axios.get(` http://www.khoa.go.kr/api/oceangrid/tideObsPreTab/search.do?ServiceKey=${serviceKey1}&ObsCode=DT_0061&Date=20220904&ResultType=json`)
-                  // console.log(tide)
-                  setTide(tide.data.result.data)
-              }
-              a(),b()
-          },[]);
-
-          useEffect (()=>{
-  
-          },[]);
-
-          for(let i= 0 ; i< highLow.length; i++){
-            if(highLow[i].category ==="TMP"){
-                Temp.push(highLow[i]);
-            }
-        }
-    
-        for(let i= 0 ; i< highLow.length; i++){
-            if(highLow[i].category==="SKY"){
-                SKYcode.push(highLow[i]);
-            }
-        }
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
 
   return (
     <ScrollView>
       <StatusBar/>
-<<<<<<< HEAD
       <WeatherPageHeader navigation={navigation} route={route.params} NWeather = {NWeather} highLow = {highLow} Tmx={Tmnx} Tmn={Tmn}/> 
       <TodayTemperature  Temp={realTime} realSky={realSky}/>
       <TwoMiddleBox tide={tide} Beach={Beach} NWeather = {NWeather} CurrentTime={CurrentTime}/> 
-=======
-      <WeatherPageHeader navigation={navigation} route={route.params} NWeather = {NWeather} highLow = {highLow} /> 
-      <TodayTemperature  Temp={Temp} SKYcode={SKYcode} />
-      <TwoMiddleBox  route={route.params} tide={tide} Beach={Beach} NWeather = {NWeather} CurrentTime={CurrentTime}/> 
->>>>>>> 4df2ed85120ae1c8cfb9c496c0eaf58e8092a2a8
     </ScrollView>
   )
 }
