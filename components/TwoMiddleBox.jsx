@@ -63,49 +63,49 @@ const TwoMiddleBox = ({Beach, NWeather , tide}) => {
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>수온</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>{Math.round(Beach.water_temp)}˚</Text>
-                </View>
+                </View> */}
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>파고</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>{Math.round(Beach.wave_height*10)/10}m</Text>
-                </View>
+                </View> */}
             </View>
             <View style={styles.BRowContainer}>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>미세먼지</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>18 (좋음)</Text>
-                </View>
+                </View> */}
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>초미세먼지</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>12 (좋음)</Text>
-                </View>
+                </View> */}
             </View>
             <View style={styles.BRowContainer}>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>일출</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>06:02</Text>
-                </View>
+                </View> */}
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>일몰</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>07:32</Text>
-                </View>
+                </View> */}
             </View>
             <View style={styles.BRowContainer}>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowLeftText}>조석정보</Text>
                 </View>
-                <View style={styles.BRowBox}>
+                {/* <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>{(tide[1].tph_time).substring (10,16)}</Text>
                 </View>
                 <View style={styles.BRowBox}>
@@ -116,9 +116,12 @@ const TwoMiddleBox = ({Beach, NWeather , tide}) => {
                 </View>
                 <View style={styles.BRowBox}>
                     <Text style={styles.rowRightText}>{(tide[0].tph_time).substring (10,16)}</Text>
-                </View>
+                </View> */}
             </View>
             <Text style={styles.tideInfoText}>※ 조석정보는 썰물 밀물 썰물 밀물 순으로 제공됩니다.</Text>
+        </View>
+        <View style={styles.zIndexBox}>
+            <Text style={styles.zIndexText}>6-8월만 정보가 제공됩니다.</Text>
         </View>
         {/* <View style={styles.moreInfoBox}>
             <TouchableOpacity>
@@ -202,14 +205,30 @@ const styles = StyleSheet.create({
     BottomContainer:{
         marginBottom: 20
     },
+    zIndexBox:{
+        backgroundColor: "#bbb",
+        height: 250,
+        width: '95%',
+        margin: 10,
+        borderRadius: 10, 
+        alignItems:'center',
+        paddingTop: 12,
+        position: 'absolute',
+        zIndex: 2,
+        opacity: 0.6,
+        alignItems:'center',
+        justifyContent:'center'
+    },
     BottomBox:{
+         width: '95%',
          height: 250,
          margin: 10,
          borderRadius: 10, 
          borderColor: "#6383A6",
          borderWidth: 3,
          alignItems:'center',
-         paddingTop: 12
+         paddingTop: 12,
+
     },
     BRowContainer:{
         // backgroundColor: '#ddd',
@@ -239,7 +258,12 @@ const styles = StyleSheet.create({
         color: "#6383A6",
         fontWeight: 'bold',
         fontSize: 16
+    },
+    zIndexText:{
+        fontWeight: 'bold',
+        fontSize: 25
     }
+    
 
 })
 export default TwoMiddleBox

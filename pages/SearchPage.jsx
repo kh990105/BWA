@@ -4,6 +4,7 @@ import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ArrowIcon from 'react-native-vector-icons/Entypo'
 import BeachList from '../data/BeachList.json'
+import { useEffect } from 'react';
 
 
 
@@ -21,8 +22,13 @@ const SearchPage = ({navigation}) => {
       const text_data = text;
       return item_data.indexOf(text_data) > -1;
     });
-    setData(updatedData);
-    setSearchValue(text_data)
+    useEffect(()=>{
+      setData(updatedData);
+    })
+    useEffect(()=>{
+      setSearchValue(text_data)
+    })
+
   };
 
   const Item = ({ name, id, navigation}) => {
